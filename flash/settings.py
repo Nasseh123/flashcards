@@ -62,6 +62,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'cards',
+    'bootstrap4',
 ]
 
 MIDDLEWARE = [
@@ -158,3 +159,5 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 # Configure Django App for Heroku.
 django_heroku.settings(locals())
+
+LOGIN_REDIRECT_URL = 'index'
