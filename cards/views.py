@@ -3,7 +3,7 @@ from .models import Profile,Subjects,cards
 from .forms import SubjectForm
 # Create your views here.
 def index(request):
-
+    
     return render(request,'index.html')
 
 def newsubject(request):
