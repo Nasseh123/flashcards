@@ -1,0 +1,18 @@
+{%extends 'base.html'%}
+
+{% load bootstrap4 %}
+{%load static%} 
+{%block content%}
+{{block.super}}
+<form   method="post" enctype="multipart/form-data">
+    {%csrf_token%}
+
+    {% bootstrap_form subjectform%}
+    <input type="submit" class="btn btn-success btn-lg" value="Post">
+  </form>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+{%endblock%}
+
+
+
+   
