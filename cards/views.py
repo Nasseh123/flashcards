@@ -9,13 +9,16 @@ def index(request):
 def newsubject(request):
     current_user =request.user
 
-    if method=='POST':
+    if request.method=='POST':
         subjectform=SubjectForm(request.POST)
         
         if subjectform.is_valid():
             subject=subjectform.save(commit=False)
             subject.user=current_user
             subject.save()
-            
+
         return redirect ('index')
-        
+    else:
+        subjectform=SubjectForm()
+    
+    return render(request,'newsubject.html',{'subjectform':subjectform})
