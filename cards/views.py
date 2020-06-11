@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Profile,Subjects,cards
-from .forms import SubjectForm
+from .forms import SubjectForm, CardForm
 # Create your views here.
 def index(request):
     
@@ -22,3 +22,4 @@ def newsubject(request):
         subjectform=SubjectForm()
     
     return render(request,'newsubject.html',{'subjectform':subjectform})
+
