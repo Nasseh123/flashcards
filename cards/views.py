@@ -5,7 +5,10 @@ from .forms import SubjectForm, CardForm
 def index(request):
     all_cards = cards.objects.all()
     
-    return render(request,'index.html', {"all_cards": all_cards})
+    
+    subjects=Subjects.objects.all()    
+    
+    return render(request,'index.html',{'subjects':subjects"all_cards": all_cards})
 
 def newsubject(request):
     current_user =request.user
@@ -13,12 +16,17 @@ def newsubject(request):
     if request.method=='POST':
         subjectform=SubjectForm(request.POST)
         
-        if subjectform.is_valid():
-            subject=subjectform.save(commit=False)
-            subject.user=current_user
-            subject.save()
-
-        return redirect ('index')
+        
+        if subjectform.is_valid() :
+            subject=subjectform.cleaned_data['subject']
+            existsubject=Subjects.objects.filter(subjects=subject,user_id=current_user)
+            if len(existsubject)<1:
+                newsubject=Subjects(subjects=subject,user=current_user)
+                newsubject.save()
+                return redirect ('index')
+            else:
+                message=f'{subject} flash card already exist!'
+                return render(request,'newsubject.html',{'subjectform':subjectform , 'message':message})
     else:
         subjectform=SubjectForm()
     
@@ -36,3 +44,15 @@ def new_card(request):
     else:
         form = CardForm()
     return render(request, 'new_card.html', {'form': form})
+        
+    return render(request,'newsubject.html',{'subjectform':subjectform ,})
+
+def subject(request,subject):
+    current_user =request.user
+    subjects=Subjects.objects.all() 
+    searched_subject = Subjects.objects.filter(subjects=subject ,user_id=current_user).first()
+    print(searched_subject)
+       
+    message = f"{subject}"
+
+    return render(request, 'index.html',{"message":message,'searched_subject':searched_subject, 'subjects':subjects})
