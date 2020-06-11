@@ -22,6 +22,10 @@ def save_user_profile(sender, instance, **kwargs):
 class Subjects(models.Model):
     subjects=models.CharField(max_length=50)
     user=models.ForeignKey(User,on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.subjects
+        
 class cards(models.Model):
     title=models.CharField(max_length=50)
     body=models.TextField()

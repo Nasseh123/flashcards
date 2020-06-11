@@ -1,12 +1,14 @@
 from django.shortcuts import render,redirect
 from .models import Profile,Subjects,cards
-from .forms import SubjectForm
+from .forms import SubjectForm, CardForm
 # Create your views here.
 def index(request):
+    all_cards = cards.objects.all()
+    
     
     subjects=Subjects.objects.all()    
     
-    return render(request,'index.html',{'subjects':subjects})
+    return render(request,'index.html',{'subjects':subjects,"all_cards": all_cards})
 
 def newsubject(request):
     current_user =request.user
@@ -27,6 +29,22 @@ def newsubject(request):
                 return render(request,'newsubject.html',{'subjectform':subjectform , 'message':message})
     else:
         subjectform=SubjectForm()
+    
+    return render(request,'newsubject.html',{'subjectform':subjectform})
+
+def new_card(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = CardForm(request.POST, request.FILES)
+        if form.is_valid():
+            card = form.save(commit=False)
+            card.user = current_user
+            
+            card.save()
+        return redirect('index')
+    else:
+        form = CardForm()
+    return render(request, 'new_card.html', {'form': form})
         
     return render(request,'newsubject.html',{'subjectform':subjectform ,})
 
@@ -37,5 +55,5 @@ def subject(request,subject):
     print(searched_subject)
        
     message = f"{subject}"
-
+    
     return render(request, 'index.html',{"message":message,'searched_subject':searched_subject, 'subjects':subjects})

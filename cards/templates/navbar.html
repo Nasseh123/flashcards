@@ -30,6 +30,28 @@
               <a class="nav-link" href="#">About</a>
             </li>
           </ul>
+          <!-- -------------------------------------------------------------------------------------------- -->
+          {% if user.is_authenticated %}
+          <div class="container">
+            <div class="dropdown navbar-right">
+              <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Account
+              </button>
+              <div class="dropdown-menu">
+                <a href="{%url 'index'">Home</a><br>
+                <!-- <a href="{%url 'profileview' user_id=user.id">View Profile</a><br> -->
+                <a href="{% url 'new_card' ">Add a Card</a><br>
+                <a href="/admin/">Admin Dashboard</a><br>
+                <a href="/logout">Logout</a>
+              </div>
+            </div>
+          </div>
+          {% else %}
+        <li>
+          <a class='btn btn-primary' href="/accounts/login">Login</a>
+        </li>
+        {% endif %}
+          <!-- -------------------------------------------------------------------------------------------- -->
           <form class="form-inline my-2 my-lg-0">
             <input class="form-control mr-sm-2" type="text" placeholder="Search">
             <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
