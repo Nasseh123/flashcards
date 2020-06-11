@@ -10,4 +10,4 @@ class SubjectForm(forms.ModelForm):
 class CardForm(forms.ModelForm):
     class Meta:
         model = cards
-        exclude = ['update_date', 'pub_date', 'user', 'subject' ]
+        exclude = ['update_date', 'pub_date', 'user' ]
