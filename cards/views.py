@@ -8,7 +8,7 @@ def index(request):
     
     subjects=Subjects.objects.all()    
     
-    return render(request,'index.html',{'subjects':subjects"all_cards": all_cards})
+    return render(request,'index.html',{'subjects':subjects,"all_cards": all_cards})
 
 def newsubject(request):
     current_user =request.user
@@ -39,6 +39,7 @@ def new_card(request):
         if form.is_valid():
             card = form.save(commit=False)
             card.user = current_user
+            
             card.save()
         return redirect('index')
     else:
@@ -54,5 +55,5 @@ def subject(request,subject):
     print(searched_subject)
        
     message = f"{subject}"
-
+    
     return render(request, 'index.html',{"message":message,'searched_subject':searched_subject, 'subjects':subjects})
