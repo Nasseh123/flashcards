@@ -3,8 +3,9 @@ from .models import Profile,Subjects,cards
 from .forms import SubjectForm, CardForm
 # Create your views here.
 def index(request):
+    all_cards = cards.objects.all()
     
-    return render(request,'index.html')
+    return render(request,'index.html', {"all_cards": all_cards})
 
 def newsubject(request):
     current_user =request.user

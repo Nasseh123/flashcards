@@ -27,12 +27,13 @@
     
   
 <div class="row">
+    {%for item in all_cards%}
     <div class="col-md-3"  style="padding-top: 10px;">
         <div class="card border-success " >
-            <div class="card-header">Header</div>
+            <div class="card-header">{{item.subject}}</div>
             <div class="card-body">
-              <h4 class="card-title">Success card title</h4>
-              <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+              <h4 class="card-title">{{item.title}}</h4>
+              <p class="card-text">{{item.body}}</p>
             </div>
             <div>
                 <a href=""  class="btn btn-danger" style="width: 65px;"> <span style="font-size: 10px; float: left; ">DELETE</span> </a>
@@ -40,11 +41,12 @@
             </div>
             
             <div class="card-footer text-muted">
-                2 days ago
+                {{item.pub_date}}
               </div>
            
           </div>
     </div>
+    {%endfor%}
     <div class="col-md-3"  style="padding-top: 10px;"> 
         <div class="card border-success " >
             <div class="card-header">Header</div>

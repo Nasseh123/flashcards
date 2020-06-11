@@ -18,7 +18,7 @@
 
     <h1>Add your New Card Here</h1>
 
-  <form  action="{%url 'new_project'%}" method="post" enctype="multipart/form-data">
+  <form  action="{%url 'new_card'%}" method="post" enctype="multipart/form-data">
     {%csrf_token%}
 
     {% bootstrap_form form%}
