@@ -7,10 +7,11 @@ class Profile (models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
 class Subjects(models.Model):
     subjects=models.CharField(max_length=50)
-    
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
 class cards(models.Model):
     title=models.CharField(max_length=50)
     body=models.TextField()
     pub_date=models.DateTimeField(auto_now_add=True)
     update_date=models.DateTimeField(auto_now_add=True)
     subject=models.ForeignKey(Subjects,on_delete=models.CASCADE)
+    user=models.ForeignKey(User,on_delete=models.CASCADE)
