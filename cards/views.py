@@ -23,3 +23,15 @@ def newsubject(request):
     
     return render(request,'newsubject.html',{'subjectform':subjectform})
 
+def new_card(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = CardForm(request.POST, request.FILES)
+        if form.is_valid():
+            card = form.save(commit=False)
+            card.user = current_user
+            card.save()
+        return redirect('index')
+    else:
+        form = CardForm()
+    return render(request, 'new_card.html', {'form': form})
