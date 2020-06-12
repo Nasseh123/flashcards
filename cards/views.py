@@ -74,6 +74,7 @@ def profile(request,id):
 
 def delete(request, id):
     card = cards.objects.filter(title=id).delete()
+    print(id)
     
     return redirect("index")
 
