@@ -4,31 +4,28 @@
 <div class="container">
     
     <div class="row">
+       
         <div class="col-md-12">
+            {% for subject in subjects %}
             <div class="btn-group" role="group"  aria-label="Basic example" >
-                <a href=""  class="btn btn-primary"> MATH </a>
-                <a href=""  class="btn btn-primary"> SCIENCE </a>
-                <a href=""  class="btn btn-primary"> BIOLOGY </a>
-                <a href=""  class="btn btn-primary"> PROGRAMMING </a>
-                <a href=""  class="btn btn-primary"> SOCIAL </a>
-                <a href=""  class="btn btn-primary"> TRIAL </a>
-                <a href=""  class="btn btn-primary"> MATH </a>
-                <a href=""  class="btn btn-primary"> SCIENCE </a>
-                <a href=""  class="btn btn-primary"> BIOLOGY </a>
-                <a href=""  class="btn btn-primary"> PROGRAMMING </a>
-                <a href=""  class="btn btn-primary"> SOCIAL </a>
+               
+                <a href="{%url 'subject' subject.subjects %}"  class="btn btn-primary"> {{subject.subjects}} </a>
+                
                 
              
             </div>
-         </div>
+            {% endfor %}
+         </div> 
+         
   </div>
-  <!-- <a href=""  class="btn btn-primary"> TRIAL </a> -->
+ 
 </div>
     
   
 <div class="row">
     {%for item in all_cards%}
-    <div class="col-md-3"  style="padding-top: 10px;">
+   
+    <div class="col-md-3"  style="padding-top: 10px; color: black;" >
         <div class="card border-success " >
             <div class="card-header">{{item.subject}}</div>
             <div class="card-body">
@@ -48,6 +45,7 @@
     </div>
     {%endfor%}
     
+   
 
   
 
