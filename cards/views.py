@@ -71,3 +71,11 @@ def profile(request,id):
         profiledform=Profileform()
 
     return render(request,'profile.html',{'profile':profile,'profiledform':profiledform})
+
+def delete(request, id):
+    card = cards.objects.filter(title=id).delete()
+    print(id)
+    
+    return redirect("index")
+
+    # return render(request, "delete.html")
