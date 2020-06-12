@@ -9,3 +9,9 @@ class CardForm(forms.ModelForm):
         exclude = ['update_date', 'pub_date', 'user' ]
 class SubjectForm(forms.Form):
    Subject=forms.CharField(label='Subject',max_length=20)
+
+
+class Profileform(forms.ModelForm):
+    class Meta:
+        model= Profile
+        exclude =['user']
