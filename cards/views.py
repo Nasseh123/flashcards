@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from .models import Profile,Subjects,cards
-from .forms import SubjectForm, CardForm
+from .forms import SubjectForm, CardForm,Profileform
 # Create your views here.
 def index(request):
     all_cards = cards.objects.all()
@@ -57,3 +57,17 @@ def subject(request,subject):
     message = f"{subject}"
     
     return render(request, 'index.html',{"message":message,'searched_subject':searched_subject, 'subjects':subjects})
+
+def profile(request,id):
+    profile=Profile.objects.get(user_id=id)
+    print(profile.user.id)
+    if request.method=='POST':
+        profiledform=Profileform(request.POST,request.FILES,instance=profile)
+
+        if profiledform.is_valid():
+            profiledform.save()
+            return redirect('profile' ,id=id)
+    else:
+        profiledform=Profileform()
+
+    return render(request,'profile.html',{'profile':profile,'profiledform':profiledform})
