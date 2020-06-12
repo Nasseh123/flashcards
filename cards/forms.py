@@ -15,3 +15,8 @@ class Profileform(forms.ModelForm):
     class Meta:
         model= Profile
         exclude =['user']
+
+class UpdateForm(forms.ModelForm):
+    class Meta:
+        model = cards
+        exclude = ['update_date', 'pub_date', 'user' ]

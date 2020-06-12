@@ -1,14 +1,16 @@
 from django.shortcuts import render,redirect
 from .models import Profile,Subjects,cards
-from .forms import SubjectForm, CardForm,Profileform
+from .forms import SubjectForm, CardForm,Profileform,UpdateForm
 # Create your views here.
 def index(request):
-    all_cards = cards.objects.all()
+    current_user=request.user
+    all_cards = cards.objects.filter(user=current_user)
     
+    updateformd=UpdateForm()
+   
+    subjects=Subjects.objects.filter(user=current_user)    
     
-    subjects=Subjects.objects.all()    
-    
-    return render(request,'index.html',{'subjects':subjects,"all_cards": all_cards})
+    return render(request,'index.html',{'subjects':subjects,"all_cards": all_cards,'updateformd':updateformd})
 
 def newsubject(request):
     current_user =request.user
@@ -50,13 +52,14 @@ def new_card(request):
 
 def subject(request,subject):
     current_user =request.user
-    subjects=Subjects.objects.all() 
-    searched_subject = Subjects.objects.filter(subjects=subject ,user_id=current_user).first()
-    print(searched_subject)
+    subjects=Subjects.objects.filter(user=current_user)
+    subjectid=Subjects.objects.get(subjects=subject)
+    all_cards = cards.objects.filter(subject=subjectid.id ,user_id=current_user)
+    print(all_cards)
        
     message = f"{subject}"
-    
-    return render(request, 'index.html',{"message":message,'searched_subject':searched_subject, 'subjects':subjects})
+    updateformd=UpdateForm()
+    return render(request, 'index.html',{"message":message,'all_cards':all_cards, 'subjects':subjects,'updateformd':updateformd})
 
 def profile(request,id):
     profile=Profile.objects.get(user_id=id)
@@ -71,3 +74,13 @@ def profile(request,id):
         profiledform=Profileform()
 
     return render(request,'profile.html',{'profile':profile,'profiledform':profiledform})
+
+def update(request,id):
+    cardinstance=cards.objects.get(id=id)
+    if request.method == 'POST':
+        updateformd = UpdateForm(request.POST, request.FILES,instance=cardinstance)
+        if updateformd.is_valid():
+            updateformd.save()
+        
+        return redirect('index')
+        
